@@ -1,0 +1,84 @@
+本文简单介绍如何使用 Python 的 pyautogui 模块实现鼠标的自动移动以及键盘的自行输入. 该模块不是 Python 自带的, 因此执行以下命令进行安装
+
+# pyautogui模块依赖image模块，没有image会报ImportError: No module named 'PIL'错误
+pip install image
+pip install pyautogui
+
+官方文档介绍：https://pyautogui.readthedocs.io/en/latest/
+
+
+使用 pyautogui 模块控制鼠标的移动
+
+    moveTo(): 用于鼠标的移动
+pyautogui.moveTo(100,100,duration=1)
+这段代码调用了 moveTo() 函数, 其接受 x, y 坐标作为参数, 还有一个可选的持续时间参数. 该函数将鼠标指针从当前位置移动到 (x, y) 坐标指定的位置, 移动花费的时间由持续时间参数指定. 保存并运行该 Python 脚本, 你将看到, 鼠标指针像被施了魔法一样, 从当前位置花 1 秒钟时间移动到坐标位置 (100, 100).
+
+    moveRel(): 根据当前位置, 相对移动鼠标指针	
+pyautogui.moveRel(0,300,duration=1)
+这段代码将鼠标指针从原位置相对地移动 (0, 300) 个像素点 (译注: 即向下移动 300 像素). 比如说, 运行代码之前, 鼠标指针在 (1000, 300), 那么代码运行之后, 鼠标指针将移动到 (1000, 600), 耗时 1 秒.
+
+
+    position(): 获取当前鼠标指针的位置
+print(pyautogui.position())
+输出: 程序执行时的鼠标所在的位置坐标.
+
+
+    click(): 用于控制鼠标点击和拖拽
+pyautogui.click(370,120)
+在(370,120)的位置模拟鼠标点击，其中click还有一个参数动作button，默认为'lest'，当button='right'时，可rightClick()效果一样(鼠标右键点击)
+    doubleClick() 双击
+    rightClick() 右击
+
+有两个与鼠标拖拽操作相关的函数: dragTo 和 dragRel. 它们的行为与 moveTo 和 moveRel 类似, 区别在于拖拽操作在移动的过程中, 会保持鼠标左键被按下.
+该功能可用于不同的场景, 比如移动对话框，或在 Windows 的画板程序中用铅笔工具自动绘图	
+
+time.sleep(5) # 5秒种时间切换到画板程序
+pyautogui.moveTo(200,200,duration=1) # 鼠标移动到(200,200)的位置
+pyautogui.dragRel(100,0,duration=1)
+pyautogui.dragRel(0,100,duration=1)
+pyautogui.dragRel(-100,0,duration=1)
+pyautogui.dragRel(0,-100,duration=1)
+
+    scroll(): 滚屏函数接受像素数作为参数, 并用给定的像素数向上滚屏
+pyautogui.scroll(200)
+对选中的窗口进行向上滚屏200个像素点.当值为负数时，向下移动
+
+
+    typewrite(): 用于自动键入字符串, 只需将要键入的字符串传递给函数作为参数即可
+pyautogui.click(100,200)
+pyautogui.typewrite('hello word!')
+
+假设文本区域位于屏幕 (100, 200) 的坐标位置, 那么这段代码将点击文本区域, 激活它, 并键入'hello word!'
+
+
+    传递键名: 可以向 typywrite() 函数传入分离的键名.
+pyautogui.typewrite(['a','left','ctrlleft'])
+这段代码等价于: 键入 "a", 然后敲击左方向键, 再敲击左 ctrl 键.
+
+
+    热键组合: hotkey() 可以模拟组合热键, 比如: ctrl-c, ctrl-a, ctrl-v 
+pyautogui.hotkey('ctrlleft','v')
+
+模拟ctrl-v，复制功能
+pyautogui.hotkey('ctrl', 'shift', 'esc')
+等价于
+pyautogui.keyDown('ctrl')
+pyautogui.keyDown('shift')
+pyautogui.keyDown('esc')
+pyautogui.keyUp('esc')
+pyautogui.keyUp('shift')
+pyautogui.keyUp('ctrl')
+
+
+    press() ：键盘功能按键
+pyautogui.press('enter')  # press the Enter key
+pyautogui.press('f1')     # press the F1 key
+pyautogui.press('left')   # press the left arrow key
+
+
+    消息弹窗函数
+
+如果你需要消息弹窗，通过单击OK暂停程序，或者向用户显示一些信息，消息弹窗函数就会有类似JavaScript的功能：
+pyautogui.alert('这个消息弹窗是文字+OK按钮')  # 返回OK 
+pyautogui.confirm('这个消息弹窗是文字+OK+Cancel按钮') # 返回OK 或 Cancel
+pyautogui.prompt('这个消息弹窗是让用户输入字符串，单击OK') # 返回输入的字符串
