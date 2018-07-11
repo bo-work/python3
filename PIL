@@ -1,0 +1,97 @@
+PIL图片处理
+
+
+演示示例1：图片的裁切
+复制代码
+
+from PIL import Image
+
+im = Image.open("jgz.jpg")
+box = (10,10,100,100)
+region = im.crop(box)
+region.save("cutting.jpg")
+
+复制代码
+
+上述代码将jgz.jpg图片的((10,10), (10,100),(100,10),(100,100))所划出的区域进行裁切并保存在cutting.jpg当中
+
+ 
+
+演示示例2：图片的拼合
+
+from PIL import Image
+img = Image.open("./background.jpg")
+jgz = Image.open("./jgz1.jpg")
+img.paste(jgz,(196,139))
+img.save("./out.jpg")
+
+上述的代码将background.jpg当做背景，将jgz1.jpg拼在其上边，位置是(196.139)。并保存为out.jpg
+
+ 
+
+演示示例3：图片的缩放
+复制代码
+
+from PIL import Image
+
+infile = './jgz.jpg'
+outfile = './jgz1.jpg'
+
+
+im = Image.open(infile)
+
+(x,y) = im.size
+x_s = 310
+y_s = y*x_s/x
+
+out=im.resize((x_s,y_s),Image.ANTIALIAS)
+out.save(outfile)
+
+复制代码
+
+上述代码，将jpz.jpg的横向像素强制为310，纵横比不变。并保存在jgz1.jpg当中
+
+ 
+
+演示实例4：在图片上写文字
+复制代码
+
+#coding=utf-8
+from PIL import Image, ImageDraw, ImageFont
+
+txt = "你这个死宅说话"
+txt2 = "   还挺搞笑的"
+font_img = Image.open("./img.jpg")
+draw = ImageDraw.Draw(font_img)
+ttfront = ImageFont.truetype('./simhei.ttf',55)
+draw.text((140,560),unicode(txt,"UTF-8"), fill=(0,0,0), font=ttfront)
+draw.text((160,630),unicode(txt2,"UTF-8"), fill=(0,0,0), font=ttfront)
+font_img.save("./out.jpg")
+
+复制代码
+
+上述代码：保证 simhei.ttf的路径可以找到。在图片 img.jpg的（140,560） （160,630）两个位置分别写入txt  和 txt2这两句汉字。文件编码是utf-8,并另存为out.jpg
+
+ 
+
+演示示例5：将图片alpha通道化，理论上将白色变成透明
+复制代码
+
+from PIL import Image
+
+img = Image.open("jgz.jpg")
+img = img.convert("RGBA")
+datas = img.getdata()
+newData = list()
+for item in datas:
+    if item[0] >220 and item[1] > 220 and item[2] > 220:
+        newData.append(( 255, 255, 255, 0))
+    else:
+        newData.append(item)
+
+img.putdata(newData)
+img.save("jgz_alpha.png","PNG")
+
+复制代码
+
+上述代码：将jgz.jpg的白色透明化并另存为jgz_alpha.png。注意透明化的图片文件的格式一般为png
