@@ -1,0 +1,84 @@
+'''Tkinter教程之Scale篇'''
+# Scale为输出限定范围的数字区间，可以为之指定最大值，最小值及步距值
+
+'''1.创建一个Scale'''
+from tkinter import *
+root = Tk()
+ 生成 一个水平Scale，最小值为－400，最大值为500，步距值为5'''
+Scale(root,
+      from_=-400,  # 设置最小值
+      to=500,  # 设置最大值
+      resolution=5,  # 设置步距值
+      orient=HORIZONTAL  # 设置水平方向
+      ).pack()
+ 
+'''3.Scale绑定变量'''
+v = StringVar()
+Scale(root,
+      from_=0,  # 设置最小值
+      to=100.0,  # 设置最大值
+      resolution=0.0001,  # 设置步距值
+      orient=HORIZONTAL,  # 设置水平方向
+      variable=v  # 绑定变量
+      ).pack()
+print(v.get())
+#v的值与Scale的值一致
+root.mainloop()
+'''4.使用回调函数打印当前的值'''
+# -*- coding: utf-8 -*-
+from tkinter import *
+ 
+root = Tk()
+ 
+ 
+def printScale(text):
+    print('text = ', text)
+    print('v = ', v.get())
+ 
+ 
+v = StringVar()
+Scale(root,
+      from_=0,  # 设置最小值
+      to=100.0,  # 设置最大值
+      resolution=0.0001,  # 设置步距值
+      orient=HORIZONTAL,  # 设置水平方向
+      variable=v,  # 绑定变量
+      command=printScale  # 设置回调函数
+      ).pack()
+print(v.get())
+ 
+# 这个回调函数有一个参数，这个值是当前的Scale的值，每移动一个步距就会调用一次这个函数，只保证最后一个肯定会调用，中间的有可能
+# 不会调用,通过上例可以看到二者的值是完全一样的。
+ 
+'''5.控制显示位数，可以理解为：Scale的值为一整形，在输出显示时，它将会被转化为一字符串，如1.2转化为1.2或1.2000都是可以的'''
+#属性digits是控制显示的数字位数,将上面的例子中的数据以8位形式显示，在最后一位会添加一个0
+v = StringVar()
+Scale(root,
+      from_=0,  # 设置最小值
+      to=100.0,  # 设置最大值
+      resolution=0.0001,  # 设置步距值
+      orient=HORIZONTAL,  # 设置水平方向
+      variable=v,  # 绑定变量
+      digits=8,  # 设置显示的位数为8
+      command=printScale  # 设置回调函数
+      ).pack()
+print(v.get())
+root.mainloop()
+
+'''6.设置Scale的标签属性label'''
+# -*- coding: utf-8 -*-
+from tkinter import *
+ 
+root = Tk()
+sl=Scale(root,
+      from_=0,  # 设置最大值
+      to=100.0,  # 设置最小值
+      orient=HORIZONTAL,  # 设置水平方向
+      label='choice:',  # 设置标签值
+      )
+'''7.设置/取得Scale的值'''
+sl.set(50)      #将Scale的值设置为50
+print(sl.get())  #打印当前的Scale的值
+sl.pack()
+root.mainloop()
+# 由label设置的值会显示在水平Scale的上方，用于提示信息
