@@ -1,0 +1,47 @@
+图片处理特征是 将图片的像素信息转化成为数字矩阵进行处理，像素信息可以进行索引和改变，具有多种模式，并且提供了图片的批量处理，适合小视频的操作。
+
+io 	读取、保存和显示图片或视频
+data 	提供一些测试图片和样本数据
+color 	颜色空间变换
+filters 	图像增强、边缘检测、排序滤波器、自动阈值等
+draw 	操作于numpy数组上的基本图形绘制，包括线条、矩形、圆和文本等
+transform 	几何变换或其它变换，如旋转、拉伸和拉东变换等
+morphology 	形态学操作，如开闭运算、骨架提取等
+exposure 	图片强度调整，如亮度调整、直方图均衡等
+feature 	特征检测与提取等
+measure 	图像属性的测量，如相似性或等高线等
+segmentation 	图像分割
+restoration 	图像恢复
+util 	通用函数
+
+io模块进行图片输入：
+from skimage import io
+img=io.imread('path',as_grey=False);#参数设置读取灰度图
+io.imshow(img，cmap)#cmap为颜色空间 plt.cm.gray、plt.cm.jet  plt为
+
+
+io.imsave('dis path.modle',img);#保存路径可直接设置保存格式，进行格式转化
+  {print(type(img))  #显示类型
+  print(img.shape)  #显示尺寸
+  print(img.shape[0])  #图片宽度
+  print(img.shape[1])  #图片高度
+  print(img.shape[2])  #图片通道数
+  print(img.size)   #显示总像素个数
+  print(img.max())  #最大像素值
+  print(img.min())  #最小像素值
+  print(img.mean()) #像素平均值}
+  
+pixel=img[20,30,1]#参数为行列位置上的RGB(012)，输出像素值
+
+img[x,y,:]=255 #修改像素值为满值 白
+
+roi=img[80:180,100:200,:]剪裁
+
+#二值化 先rgb2grey(img),后进行灰度判定
+if (img_gray[i,j]<=0.5):
+            img_gray[i,j]=0
+        else:
+            img_gray[i,j]=1
+            
+skimage.color.convert_colorspace(arr, fromspace, tospace） #表示将arr从fromspace颜色空间转换到tospace颜色空间。
+
