@@ -1,0 +1,53 @@
+布局有三种方式pack()
+
+import tkinter as tk;
+root = tk.Tk();
+fm1 = Frame(master)                                #使用Frame增加一层容器
+Label(root,text = 'pack1',bg = 'red').pack() 
+root.mainloop();
+
+#pack(side=TOP, anchor=W, fill=X, expand=YES)
+fill 	  设置组件是否向水平或垂直方向填充 	X、Y、BOTH 和NONE 	 BOTH（水平和垂直） NONE不填充
+expand 	设置组件是否展开，当值为YES时，side选项无效。组件显示在父容器中心位置；若fill选项为BOTH,则填充父组件的剩余空间。默认为不展开 	YES 、NO（1、0） 	expand=YES expand=NO
+side 	  组件的对齐方式 	LEFT、TOP、RIGHT、BOTTOM
+ipadx、ipady 	设置x方向（或者y方向）内部间隙（子组件之间的间隔） 	可设置数值，默认是0 	非负整数，单位为像素
+padx、pady 	  设置x方向（或者y方向）外部间隙（与之并列的组件之间的间隔） 	可设置数值，默认是0 	非负整数，单位为像素
+anchor 	锚选项，当可用空间大于所需求的尺寸时，决定组件被放置于容器的何处 	N、E、S、W、NW、NE、SW、SE、CENTER（默认值为CENTER） 	表示八个方向以及中心
+
+#grid属性设置
+row、column 	设置将组件放置于第几行第几列 	取值为行、列的序号从0开始
+sticky 	    设置组件在网格中的对齐方式 	N、E、S、W、NW、NE、SW、SE、CENTER 	类似于pack布局中的锚选项
+rowspan 	  组件所跨越的行数 	跨越的行数 	取值为跨越占用的行数，而不是序号
+columnspan 	组件所跨越的列数 	跨越的列数 	取值为跨越占用的列数，而不是序号
+ipadx、ipady、padx、pady 	组件的内部、外部间隔距离，与pack的该属性用法相同 	同pack 	同pack
+
+#控件
+#button
+text                按钮的文本内容
+activebackground 		当鼠标放上去时，按钮的背景色
+activeforeground 		当鼠标放上去时，按钮的前景色
+bd（bordwidth） 	   单位为像素，默认值为2个像素 	按钮边框的大小
+bg（background） 		按钮的背景色
+command 	 	       按钮关联的函数，当按钮被点击时，执行该函数
+fg（foreground） 		按钮的前景色（按钮文本的颜色）
+font 		           设置字体，还包含样式和大小
+image 	        	给按钮设置一张图像，必须是用图像create方法产生的
+bitmap 		        指定按钮显示一张位图
+justify 	        LEFT、CENTER、RIGHT 	显示多行文本的时候,设置不同行之间的对齐方式
+padx             	单位像素 	按钮在x轴方向上的内边距，是指按钮的内容与按钮边缘的距离
+pady 	             单位像素 	按钮在y轴方向上的内边距
+state 	            DISABLED、ACTIVE、NORMAL 	设置组件状态。正常(normal)、激活(active)、禁用(disabled)
+underline 	     取值为整数，默认值为-1 	默认按钮上的文本都不带下划线。取值就是带下划线的字符串索引，为0时，第一个字符带下划线，为1时，前两个字符带下划线，以此类推
+width         	单位像素 	按钮的宽度，如未设置此项，其大小以适应按钮的内容（文本或图片的大小）
+height 	        单位像素 	按钮的高度，同width属性
+wraplength    	取值为整数，默认值0 	限制按钮每行显示的字符的数量
+textvariable 		指定一个变量名，变量值被转变为字符串在控件上显示。当变量值改变,控件也将自动更新
+anchor          取值可参考布局中的锚选项 	锚选项，控制文本的位置，默认为中心
+
+#entry 文本输入框
+entry = Entry(root,textvariable = e，show="*")  # 使用textvariable属性，绑定字符串变量e 
+e.set('请输入……') 
+
+#radiobutton多选项
+ 同一个variable为一个组
+R1 = Radiobutton(root, text="Option 1", variable=var, value=1,command=sel)
